@@ -15,17 +15,19 @@ void prime_number_table_print(int n, int * tablica) {
 
 
 void prime_generator(int n, int*tablica) {
-    int q = 0;
+    int i = 2;
 
-    #pragma omp parallel for private(q)
-        for (int i=2; i<n; i++){
-            //#pragma omp critical
+    #pragma omp parallel
+    {
+        int q = 0, j = 2;
+        #pragma omp for
+        for (i=2; i<n; i++){
             q = (int) sqrt(i);
-            for(int j=2; j<=q; j++){
+            for(j=2; j<=q; j++){
                 if(i%j == 0) tablica[i] = 1;
             }
         }
-    
+    }
         
 }
 
